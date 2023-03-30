@@ -11,7 +11,7 @@ import com.ebm.billpayment.pojos.Bills;
 
 public interface BillsRepository extends JpaRepository<Bills, Serializable>{
 	
-	@Query(value="select * from bills b where b.conusmer_no=?1 order by b.bill_no desc", nativeQuery = true)
+	@Query(value="select * from bills b where b.consumer_no=?1 order by b.bill_no desc", nativeQuery = true)
 	public List<Bills> getAllBills(int consumer_no);
 	
 	@Query(value="select max(b.current_bill_date) from bills b where consumer_no=?1",  nativeQuery = true)

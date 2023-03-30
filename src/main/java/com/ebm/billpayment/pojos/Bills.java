@@ -34,12 +34,33 @@ public class Bills {
 	private Date dueDate;
 	
 	@Column(name="amount_pay")
-	private float amountToPay;
+	private double amountToPay;
 	
 	// function to calculate bill
-	private float calculateAmount() {
+	private double calculateAmount() {
 		float units = this.presentReading - this.previousReading;
-		return 0;
+		if (units <= 100) {
+            return units * 2.9;
+        }
+        else if (units <= 200) {
+            return (100 * 2.9)
+                + (units - 100)
+                      * 4.2;
+        }
+        else if (units <= 400) {
+            return (100 * 2.9)
+                + (100 * 4.2)
+                + (units - 200)
+                      * 5.8;
+        }
+        else if (units > 400) {
+            return (100 * 2.9)
+                + (100 * 4.2)
+                + (100 * 5.8)
+                + (units - 300)
+                      * 6.55;
+        }
+        return 0;
 	}
 	
 	//constructors
@@ -86,7 +107,7 @@ public class Bills {
 		return dueDate;
 	}
 	
-	public float getAmountToPay() {
+	public double getAmountToPay() {
 		return amountToPay;
 	}
 	

@@ -6,9 +6,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ebm.billpayment.pojos.Bills;
@@ -20,9 +22,9 @@ public class BillsController {
 	@Autowired
 	private BillsRepository billsRepo;
 		
-	@GetMapping("/get-all-bills")
-	public List<Bills> getAllBills() {
-		List<Bills> list = billsRepo.findAll();
+	@GetMapping("/get-bills/{consumer_no}")
+	public List<Bills> getAllBills(@PathVariable int consumer_no) {
+		List<Bills> list = billsRepo.getAllBills(consumer_no);
 		return list;
 	}
 	
@@ -30,9 +32,8 @@ public class BillsController {
 	public String generateBills( @RequestBody Bills obj) 
 	{
 		Bills billsObj = new Bills(obj.getConsumer_no(), obj.getPresentReading(), returnPreviousReading(obj.getConsumer_no()), returnPreviousBillDate(obj.getConsumer_no()));
-		System.out.println("Received data to insert is : "+billsObj);
 		obj = billsRepo.save(billsObj);
-		return "Record inserted successfully in the database..\n" + obj;
+		return "Record inserted successfully in the database...";
 	}
 	
 	public float returnPreviousReading(int consumer_no) {
