@@ -25,7 +25,6 @@ public class TransactionsController {
 	@GetMapping("/get-transactions/{consumer_no}")
 	public List<Transactions> getTransactions(@PathVariable int consumer_no) {
 		List<Transactions> list = transactionsRepository.getTransactions(consumer_no);
-		System.out.println(list);
 		return list;
 	}
 	
@@ -34,6 +33,11 @@ public class TransactionsController {
 		transactions.setTransactionDate(Date.valueOf(LocalDate.now()));
 		transactionsRepository.save(transactions);
 		return "Payment Successfull!!!";
+	}
+	
+	@GetMapping("/get-paid-bills/{consumer_no}")
+	public List<Integer> getPaidBills(@PathVariable int consumer_no){
+		return transactionsRepository.getPaidBills(consumer_no);
 	}
 	
 }

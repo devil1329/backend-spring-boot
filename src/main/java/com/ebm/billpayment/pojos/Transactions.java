@@ -37,6 +37,12 @@ public class Transactions {
 		this.consumerNo = consumerNo;
 		this.amountPaid = amountPaid;
 	}
+	
+	
+
+	public int getTransaction_no() {
+		return transaction_no;
+	}
 
 	public int getMeterReading() {
 		return meterReading;
